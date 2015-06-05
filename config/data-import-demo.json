@@ -1,0 +1,54 @@
+{
+  "tasks": {
+    "1": {
+      "colour": "red",
+      "title": "Task A"
+    },
+    "2": {
+      "colour": "green",
+      "title": "Target B"
+    },
+    "3": {
+      "colour": "red",
+      "title": "Task C"
+    },
+    "4": {
+      "colour": "red",
+      "title": "Task D"
+    },
+    "5": {
+      "colour": "red",
+      "title": "Task E"
+    },
+    "6": {
+      "colour": "green",
+      "title": "Task F"
+    },
+    "7": {
+      "colour": "red",
+      "title": "Task G"
+    },
+    "8": {
+      "colour": "amber",
+      "title": "Task X"
+    },
+    "9": {
+      "colour": "green",
+      "title": "Task Y"
+    },
+    "10": {
+      "colour": "green",
+      "title": "Task Z"
+    }
+  },
+  "permissions": {
+    "10": {
+      "tasks": {
+        "1": true,
+        "2": true,
+        "5": true,
+        "10": true
+      }
+    }
+  }
+}

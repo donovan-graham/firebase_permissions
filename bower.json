@@ -1,0 +1,19 @@
+{
+  "name": "fb_security",
+  "version": "0.0.0",
+  "authors": [
+    "Donovan Graham <donovan@platform7.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "firebase": "~2.2.6",
+    "firebase-util": "~0.2.4"
+  }
+}

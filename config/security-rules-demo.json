@@ -1,0 +1,18 @@
+{
+  "rules": {
+    "tasks": {
+      "$task_id": {
+        ".read": "root.child('permissions').child('10').child('tasks').child($task_id).exists()",
+        ".write": "root.child('permissions').child('10').child('tasks').child($task_id).exists()"
+      },
+      ".indexOn": ["assignee_id", "creator_id", "is_task", "state"]
+    },
+    "permissions": {
+      ".read": true,
+      "$user_id": {
+        ".read": "auth != null && auth.uid === $user_id",
+        ".write": "auth != null && auth.uid === $user_id"
+      }
+    }
+  }
+}

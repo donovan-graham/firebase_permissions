@@ -1,0 +1,84 @@
+<html>
+<head>
+  <script src="bower_components/firebase/firebase.js"></script>
+  <script src="bower_components/firebase-util/dist/firebase-util.js"></script>
+
+  <script>
+
+      console.log("start ...");
+
+      /* config */
+      var AUTH_USER_ID = 10; // also update this value in rules_demo.json
+      var FIREBASE_INSTANCE = 'permissions-dem';
+
+
+      /* setup firebase */
+      var ref = new Firebase('https://' + FIREBASE_INSTANCE + '.firebaseio.com/');
+
+      /* firebase refs */
+      var taskRef = ref.child('tasks');
+      var permissionsRef = ref.child('permissions');
+
+      /* dom ids */
+      var task_list_id = 'task-list';
+      var task_item_prefix = 'task_';
+
+      function renderTaskNode(snapshot) {
+        // if(!snapshot) { return; }
+
+        var id = snapshot.key();
+        var task = snapshot.val();
+
+        var li = document.getElementById(task_item_prefix + id);
+        var text = document.createTextNode(task.title + '  (id: ' + id + ')');
+
+        if (!li) { // add
+          var ul = document.getElementById(task_list_id);
+          var li = document.createElement('LI');
+          li.setAttribute('id', task_item_prefix + id);
+          li.appendChild(text);
+          ul.appendChild(li);
+        } else { // replace
+          li.replaceChild(text, li.childNodes[0]);
+        }
+      }
+
+      function destroyTaskNode(id) {
+        var ul = document.getElementById(task_list_id);
+        var li = document.getElementById(task_item_prefix + id);
+        if (ul && li) {
+          ul.removeChild(li);
+        }
+      }
+
+      function setupTask(snapshot) {
+        var id = snapshot.key();
+        taskRef.child(id).on('value', renderTaskNode);
+      }
+
+      function teardownTask(snapshot) {
+        var id = snapshot.key();
+        taskRef.child(id).off('value', renderTaskNode);
+        destroyTaskNode(id);
+      }
+
+      /* fetch permissions for users+tasks, listen for child_added and child_removed */
+      permissionsRef.child(AUTH_USER_ID).child('tasks').on("child_added", setupTask);
+      permissionsRef.child(AUTH_USER_ID).child('tasks').on("child_removed", teardownTask);
+
+
+      // value
+      // child_added
+      // child_changed
+      // child_removed
+      // child_moved
+
+  </script>
+</head>
+<body>
+<h1>Firebase test</h1>
+
+<ul id="task-list"></ul>
+
+</body>
+</html>

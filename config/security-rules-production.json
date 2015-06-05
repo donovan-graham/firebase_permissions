@@ -1,0 +1,16 @@
+{
+  "rules": {
+    "tasks": {
+      "$task_id": {
+        ".read": "root.child('user_task_index').child(auth.uid).child($task_id).exists()",
+        ".write": "root.child('user_task_index').child(auth.uid).child($task_id).exists()"
+      }
+    },
+    "user_task_index": {
+      "$user_id": {
+        ".read": "auth != null && auth.uid === $user_id",
+        ".write": "auth != null && auth.uid === $user_id"
+      }
+    }
+  }
+}
